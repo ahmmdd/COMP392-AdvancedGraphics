@@ -1,7 +1,7 @@
 {
-  "name": "comp392-assignment02",
+  "name": "comp392-lab3",
   "version": "1.0.0",
-  "description": "COMP392-Assignment02 for Advanced Grahpics",
+  "description": "COMP392-Lab3 for Advanced Grahpics",
   "main": "game.js",
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -21,12 +21,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/300833356COMP392/COMP392-Assignment02.git"
+    "url": "git+https://github.com/300833356COMP392/COMP392-Lab3.git"
   },
   "author": "Mohammed Ahmed",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/300833356COMP392/COMP392-Assignment02/issues"
+    "url": "https://github.com/300833356COMP392/COMP392-Lab3/issues"
   },
-  "homepage": "https://github.com/300833356COMP392/COMP392-Assignment02#readme"
+  "homepage": "https://github.com/300833356COMP392/COMP392-Lab3#readme"
 }

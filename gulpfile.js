@@ -1,15 +1,3 @@
-/*
- *  This is a gulp file that is used to simplify the transcompiling process of 
- *  TypeScript files to JavaScript files. Once the default gulp is called the 
- *  transcompiling begins as soon as the changes to .html, .css, and .ts files 
- *  are made.
- *  
- *  Source File Name:   gulpfile.js
- *  Author Name:        Mohammed Juned Ahmed (300833356)
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: February 08, 2016
- *  Revision History:   0.0.1
- */
 // Add required method for JS
 var gulp = require("gulp");
 var gutil = require("gulp-util");
