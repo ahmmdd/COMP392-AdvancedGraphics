@@ -1,9 +1,9 @@
-#COMP392-Assignment02
+#COMP392-MidTerm
 
-COMP392-Assignment02 for COMP392 - Advanced Graphics @ Centennial College
+COMP392-MidTerm for COMP392 - Advanced Graphics @ Centennial College
 
-GitHub Repository:
-https://github.com/300833356COMP392/COMP392-Assignment02
+Azure Link
+http://300833356comp392-midterm.azurewebsites.net
 
-Azure Deployment Link:
-http://comp392-assignment02.azurewebsites.net
+GitHub Link
+https://github.com/300833356COMP392/COMP392-MidTerm

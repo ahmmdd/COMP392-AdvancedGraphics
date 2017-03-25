@@ -13,5 +13,5 @@
 /// <reference path="vinyl/vinyl.d.ts" />
 /// <reference path="gulp-debug/gulp-debug.d.ts" />
 /// <reference path="gulp-inject/gulp-inject.d.ts" />
-/// <reference path="gulp-sourcemaps/gulp-sourcemaps.d.ts" />
 /// <reference path="gulp-typescript/gulp-typescript.d.ts" />
+/// <reference path="gulp-sourcemaps/gulp-sourcemaps.d.ts" />

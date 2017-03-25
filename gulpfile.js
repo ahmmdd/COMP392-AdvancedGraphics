@@ -1,18 +1,6 @@
-/*
- *  This is a gulp file that is used to simplify the transcompiling process of 
- *  TypeScript files to JavaScript files. Once the default gulp is called the 
- *  transcompiling begins as soon as the changes to .html, .css, and .ts files 
- *  are made.
- *  
- *  Source File Name:   gulpfile.js
- *  Author Name:        Mohammed Juned Ahmed (300833356)
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: February 08, 2016
- *  Revision History:   0.0.1
- */
-// Add required method for JS
-var gulp = require("gulp");
-var gutil = require("gulp-util");
+// adding required modules to the project
+var gulp = require('gulp');
+var gutil = require('gulp-util');
 var debug = require('gulp-debug');
 var inject = require('gulp-inject');
 var tsc = require('gulp-typescript');
@@ -28,7 +16,7 @@ var TypeScriptSources = [
 
 var HTMLSources = ['./**/*.html'];
 
-var CSSSources = ['./Content/**/*.css'];    
+var CSSSources = ['./Content/**/*.css'];
 
 // This task Transpiles TypeScript to JavaScript
 gulp.task('transpile', function () {
@@ -44,22 +32,21 @@ gulp.task('transpile', function () {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./Scripts/'))
         .on('error', gutil.log)
-        .pipe(connect.reload());
-
+        .pipe(connect.reload()); 
 });
 
 // This task reloads the browser when any changes occur to html pages
 gulp.task("html", function () {
     gutil.log("html changed...");
     gulp.src(HTMLSources)
-    .pipe(connect.reload());
+    .pipe(connect.reload()); 
 });
 
 // This task reloads the browser when any changes occur to css files
 gulp.task('css', function(){
    gutil.log("css files changed...");
    gulp.src(CSSSources)
-   .pipe(connect.reload());
+   .pipe(connect.reload()); 
 });
 
 // This task watches .ts .js and .html files for any changes
