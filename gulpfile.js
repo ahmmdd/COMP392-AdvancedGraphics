@@ -6,9 +6,10 @@
  *  
  *  Source File Name:   gulpfile.js
  *  Author Name:        Mohammed Juned Ahmed (300833356)
+ *                      Joshua Collaco (300507555)
  *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: February 08, 2016
- *  Revision History:   0.0.1
+ *  Date Last Modified: March 20, 2016
+ *  Revision History:   1.0.1
  */
 // Add required method for JS
 var gulp = require("gulp");

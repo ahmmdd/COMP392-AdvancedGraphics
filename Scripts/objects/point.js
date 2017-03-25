@@ -1,12 +1,12 @@
 /*
- *  This is the point.ts file that initilizes the x, y, and z coordinates of
- *  the object.
+ *  This is a point script where points are initialized.
  *
  *  Source File Name:   point.ts
  *  Author Name:        Mohammed Juned Ahmed (300833356)
+ *                      Joshua Collaco (300507555)
  *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: February 08, 2016
- *  Revision History:   0.0.1
+ *  Date Last Modified: March 28, 2016
+ *  Revision History:   5.0.1
  */
 /// <reference path="../../typings/tsd.d.ts"/>
 var objects;
@@ -23,5 +23,4 @@ var objects;
     })();
     objects.Point = Point;
 })(objects || (objects = {}));
-
 //# sourceMappingURL=point.js.map
