@@ -1,15 +1,3 @@
-/**
- *  This is the game.ts file that calls all the scene files for the
- *  game
- *
- *  Source File Name:   game.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 17, 2016
- *  Revision History:   1.5.2
- */
 /// <reference path="_reference.ts"/>
 // MAIN GAME FILE
 // THREEJS Aliases
@@ -41,8 +29,6 @@ var Vector3 = THREE.Vector3;
 var Face3 = THREE.Face3;
 var CScreen = config.Screen;
 var Clock = THREE.Clock;
-var ShaderMaterial = THREE.ShaderMaterial;
-var Uniform = THREE.UniformsLib;
 // Setup a Web Worker for Physijs
 Physijs.scripts.worker = "/Scripts/lib/Physijs/physijs_worker.js";
 Physijs.scripts.ammo = "/Scripts/lib/Physijs/examples/js/ammo.js";
@@ -56,10 +42,6 @@ var menu;
 var instruction;
 var over;
 var playtwo;
-var playThree;
-var exit;
-var scoreValue;
-var livesValue;
 var stats;
 var canvas;
 var assets;
@@ -71,15 +53,10 @@ var manifest = [
     { id: "jump", src: "../../Assets/audio/Jump.wav" },
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
     { id: "InstructionButton", src: "../../Assets/images/InstructionButton.png" },
-    { id: "CanvasBackground", src: "../../Assets/images/IngameBackground.jpg" },
     { id: "ExitButton", src: "../../Assets/images/ExitButton.png" },
     { id: "Background", src: "../../Assets/images/Background.jpg" },
     { id: "PlayAgainButton", src: "../../Assets/images/PlayAgainButton.png" },
-    { id: "BackgroundMusic", src: "../../Assets/audio/BackgroundMusic.mp3" },
-    { id: "ContinueButton", src: "../../Assets/images/ContinueButton.png" },
-    { id: "MenuButton", src: "../../Assets/images/MenuButton.png" },
-    { id: "Logo", src: "../../Assets/images/Logo.png" },
-    { id: "Screenshot", src: "../../Assets/images/ss.png" }
+    { id: "BackgroundMusic", src: "../../Assets/audio/TheDoors-RidersOnTheStorm.mp3" }
 ];
 function preload() {
     assets = new createjs.LoadQueue();
@@ -130,7 +107,6 @@ function addStatsObject() {
 }
 // Setup main game loop
 function gameLoop() {
-    createjs.Sound.play("BackgroundMusic", { loop: -1 });
     stats.update();
     scene.update();
     // render using requestAnimationFrame
@@ -150,6 +126,8 @@ function setupRenderer() {
 // Setup main camera for the scene
 function setupCamera() {
     camera = new PerspectiveCamera(55, config.Screen.RATIO, 0.1, 500);
+    //camera.position.set(0, 10, 30);
+    //camera.lookAt(new Vector3(0, 0, 0));
     console.log("Finished setting up Camera...");
 }
 function changeScene() {
@@ -161,9 +139,9 @@ function changeScene() {
             scene = menu;
             console.log("Starting MENU Scene");
             break;
-        case config.Scene.PLAY1:
+        case config.Scene.PLAY:
             //show the PLAY scene
-            play = new scenes.Play1();
+            play = new scenes.Play();
             scene = play;
             scene.setGravity(new THREE.Vector3(0, -50, 0));
             console.log("Starting PLAY Scene");
@@ -174,10 +152,9 @@ function changeScene() {
             scene = over;
             console.log("Starting OVER Scene");
             break;
-        case config.Scene.PLAY2:
-            playtwo = new scenes.Play2();
+        case config.Scene.PLAYTWO:
+            playtwo = new scenes.PlayTwo();
             scene = playtwo;
-            scene.setGravity(new THREE.Vector3(0, -50, 0));
             console.log("Starting PLAYTWO Scene");
             break;
         case config.Scene.INSTRUCTION:
@@ -186,18 +163,13 @@ function changeScene() {
             scene = instruction;
             console.log("Starting INSTRUCTION Scene");
             break;
-        case config.Scene.PLAY3:
-            //show play three scene
-            playThree = new scenes.Play3();
+        case config.Scene.PLAYTHREE:
+            //show play there scene
+            /*
+            playThree = new scenes.PlayThree();
             scene = playThree;
-            scene.setGravity(new THREE.Vector3(0, -50, 0));
             console.log("Starting PLAYTHREE Scene");
-            break;
-        case config.Scene.EXIT:
-            //show exit scene
-            exit = new scenes.Exit();
-            scene = exit;
-            console.log("Starting PLAYTHREE Scene");
+            */
             break;
     }
 }

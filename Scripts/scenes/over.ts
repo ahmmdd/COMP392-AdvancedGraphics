@@ -1,15 +1,5 @@
 /**
- *  The Scenes module is a namespace to reference all scene objects
- *  
- * Source File Name:    over.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling 
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 18, 2016
- *  Revision History:   2.0.1
- * 
- *  @module scenes
+ * @module scenes
  */
 module scenes {
     /**
@@ -27,10 +17,7 @@ module scenes {
         private _blocker: HTMLElement;
         private _stage: createjs.Stage;
         private _gameLabel: createjs.Text;
-        private _scoreLabel: createjs.Text;
         private _playAgainButton: createjs.Bitmap;
-        private keyboardControls: objects.KeyboardControls;
-        private mouseControls: objects.MouseControls;
 
         /**
          * Empty Constructor - calls _initialize and start methods
@@ -60,8 +47,8 @@ module scenes {
          */
         private _initialize(): void {
             // Create to HTMLElements
-            //this._blocker = document.getElementById("blocker");
-            //this._blocker.style.display = "none";
+            this._blocker = document.getElementById("blocker");
+            this._blocker.style.display = "none";
 
             // setup canvas for menu scene
             this._setupCanvas();
@@ -81,24 +68,20 @@ module scenes {
         public start(): void {
             this._gameLabel = new createjs.Text(
                 "Game Over!!!",
-                "80px Courgette",
+                "80px Consolas",
                 "#fff000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
             this._gameLabel.y = (config.Screen.HEIGHT * 0.15);
             this._stage.addChild(this._gameLabel);
-            
-             this._scoreLabel = new createjs.Text(
-                "Your Score: " + scoreValue,
-                "40px Courgette",
-                "#ffffff");
-            this._scoreLabel.regX = this._scoreLabel.getMeasuredWidth() * 0.5;
-            this._scoreLabel.regY = this._scoreLabel.getMeasuredLineHeight() * 0.5;
-            this._scoreLabel.x = config.Screen.WIDTH * 0.5;
-            this._scoreLabel.y = config.Screen.HEIGHT * 0.5;
-            this._stage.addChild(this._scoreLabel);
-            
+            /*
+            this.score = new createjs.Text(
+                "Your Score is: ",
+                "40px Consolas",
+                "#ff0000"
+            );
+            */
             // create play again button
             this._playAgainButton = new createjs.Bitmap(assets.getResult("PlayAgainButton"));
             this._playAgainButton.scaleX = 1.5;
@@ -118,9 +101,7 @@ module scenes {
             });
             //create mouse click event for start button
             this._playAgainButton.on("click", (event: createjs.MouseEvent) => {
-                scoreValue = 0;
-                livesValue = 10;
-                currentScene = config.Scene.PLAY1;
+                currentScene = config.Scene.PLAY;
                 changeScene();
             });
         }
@@ -133,9 +114,6 @@ module scenes {
          */
         public update(): void {
             this._stage.update();
-            this.keyboardControls.enabled = true;
-            this.mouseControls.enabled = true;
-            this.blocker.style.display = 'none';
         }
 
         /**

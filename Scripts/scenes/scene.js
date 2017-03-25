@@ -3,19 +3,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- *  The Scenes module is a namespace to reference all scene objects
- *
- *  Source File Name:   scene.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 18, 2016
- *  Revision History:   2.0.1
- *
- *  @module scenes
- */
 var scenes;
 (function (scenes) {
     /**

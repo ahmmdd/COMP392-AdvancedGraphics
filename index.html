@@ -1,26 +1,9 @@
-<!--
-/**
- *  This main html document that calls all
- *  the scripts and makes content visible on web.
- *  
- *  Source File Name:   game.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling 
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 17, 2016
- *  Revision History:   1.5.2
- * 
- *  @module scenes
- */
- -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>Final Project</title>
-    <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
     <!-- CSS Section -->
     <link rel="stylesheet" href="Content/app.css">
 </head>
@@ -32,23 +15,11 @@
             <br> (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around);
         </div>
     </div>
+    
     <div>
         <canvas id="canvas"></canvas>
     </div>
-
-
-    <!-- Background script Section -->
-    <!--
-    <script type="application/x-glsl" id="sky-vertex">
-        varying vec2 vUV; void main() { vUV = uv; vec4 pos = vec4(position, 1.0); gl_Position = projectionMatrix * modelViewMatrix
-        * pos; }
-    </script>
-
-    <script type="application/x-glsl" id="sky-fragment">
-        uniform sampler2D texture; varying vec2 vUV; void main() { vec4 sample = texture2D(texture, vUV); gl_FragColor = vec4(sample.xyz,
-        sample.w); }
-    </script>
-    -->
+    
     <!-- JavaScript Section -->
     <script src="Scripts/lib/EaselJS/lib/easeljs-0.8.2.min.js"></script>
     <script src="Scripts/lib/TweenJS/lib/tweenjs-0.6.2.min.js"></script>
@@ -62,17 +33,16 @@
     <script src="Scripts/objects/keyboardcontrols.js"></script>
     <script src="Scripts/objects/mousecontrols.js"></script>
     <script src="Scripts/config/screen.js"></script>
-
+    
     <!-- Scene Scritps -->
     <script src="Scripts/scenes/scene.js"></script>
-    <script src="Scripts/scenes/Play1.js"></script>
-    <script src="Scripts/scenes/Play2.js"></script>
-    <script src="Scripts/scenes/Play3.js"></script>
-    <script src="Scripts/scenes/Menu.js"></script>
-    <script src="Scripts/scenes/Instruction.js"></script>
-    <script src="Scripts/scenes/Over.js"></script>
-    <script src="Scripts/scenes/Exit.js"></script>
-
+    <script src="Scripts/scenes/play.js"></script>
+    <script src="Scripts/scenes/playleveltwo.js"></script>
+    <script src="Scripts/scenes/menu.js"></script>
+    <script src="Scripts/scenes/instruction.js"></script>
+    <script src="Scripts/scenes/over.js"></script>
+    
+    
     <script src="Scripts/core/game.js"></script>
 </body>
 

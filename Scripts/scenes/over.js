@@ -4,17 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- *  The Scenes module is a namespace to reference all scene objects
- *
- * Source File Name:    over.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 18, 2016
- *  Revision History:   2.0.1
- *
- *  @module scenes
+ * @module scenes
  */
 var scenes;
 (function (scenes) {
@@ -56,8 +46,8 @@ var scenes;
          */
         Over.prototype._initialize = function () {
             // Create to HTMLElements
-            //this._blocker = document.getElementById("blocker");
-            //this._blocker.style.display = "none";
+            this._blocker = document.getElementById("blocker");
+            this._blocker.style.display = "none";
             // setup canvas for menu scene
             this._setupCanvas();
             // setup a stage on the canvas
@@ -72,18 +62,13 @@ var scenes;
          * @return void
          */
         Over.prototype.start = function () {
-            this._gameLabel = new createjs.Text("Game Over!!!", "80px Courgette", "#fff000");
+            this._gameLabel = new createjs.Text("Game Over!!!", "80px Consolas", "#fff000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
             this._gameLabel.y = (config.Screen.HEIGHT * 0.15);
             this._stage.addChild(this._gameLabel);
-            this._scoreLabel = new createjs.Text("Your Score: " + scoreValue, "40px Courgette", "#ffffff");
-            this._scoreLabel.regX = this._scoreLabel.getMeasuredWidth() * 0.5;
-            this._scoreLabel.regY = this._scoreLabel.getMeasuredLineHeight() * 0.5;
-            this._scoreLabel.x = config.Screen.WIDTH * 0.5;
-            this._scoreLabel.y = config.Screen.HEIGHT * 0.5;
-            this._stage.addChild(this._scoreLabel);
+            this.score = new createjs.Text("Your Score is: ", "40px Consolas", "#ff0000");
             // create play again button
             this._playAgainButton = new createjs.Bitmap(assets.getResult("PlayAgainButton"));
             this._playAgainButton.scaleX = 1.5;
@@ -102,9 +87,7 @@ var scenes;
             });
             //create mouse click event for start button
             this._playAgainButton.on("click", function (event) {
-                scoreValue = 0;
-                livesValue = 10;
-                currentScene = config.Scene.PLAY1;
+                currentScene = config.Scene.PLAY;
                 changeScene();
             });
         };
@@ -116,9 +99,6 @@ var scenes;
          */
         Over.prototype.update = function () {
             this._stage.update();
-            this.keyboardControls.enabled = true;
-            this.mouseControls.enabled = true;
-            this.blocker.style.display = 'none';
         };
         /**
          * The resize method is a procedure that sets variables and objects on screen resize
@@ -134,4 +114,4 @@ var scenes;
     scenes.Over = Over;
 })(scenes || (scenes = {}));
 
-//# sourceMappingURL=Over.js.map
+//# sourceMappingURL=over.js.map

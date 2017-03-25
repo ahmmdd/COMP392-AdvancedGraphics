@@ -4,17 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- *  The Scenes module is a namespace to reference all scene objects
- *
- *  Source File Name:   instruction.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 18, 2016
- *  Revision History:   2.0.1
- *
- *  @module scenes
+ * @module scenes
  */
 var scenes;
 (function (scenes) {
@@ -27,15 +17,13 @@ var scenes;
      * @param blocker {HTMLElement}
      * @param _stage {createjs.Stage}
      * @param _instructionLabel {createjs.Text}
-     * @param _instructionInformationLabel {createjs.Text}
-     * @param _menuButton {createjs.Bitmap}
+     * @param _startButton {createjs.Bitmap}
      * @param _exitButton {createjs.Bitmap}
-     * @param _screenShot {createjs.Bitmap}
      */
     var Instruction = (function (_super) {
         __extends(Instruction, _super);
         /**
-         * Empty Constructor - calls _initialize and menu methods
+         * Empty Constructor - calls _initialize and start methods
          *
          * @constructor
          */
@@ -75,73 +63,56 @@ var scenes;
          * @return void
          */
         Instruction.prototype.start = function () {
-            //Game rule label
-            this._instructionLabel = new createjs.Text("Game Rules:", "80px Courgette", "#fff000");
+            this._instructionLabel = new createjs.Text("Game Rules:", "80px Consolas", "#fff000");
             this._instructionLabel.regX = this._instructionLabel.getMeasuredWidth() * 0.5;
             this._instructionLabel.regY = this._instructionLabel.getMeasuredLineHeight() * 0.5;
             this._instructionLabel.x = config.Screen.WIDTH * 0.5;
             this._instructionLabel.y = (config.Screen.HEIGHT * 0.15);
             this._stage.addChild(this._instructionLabel);
-            //instructions part 1
-            this._instructionInformationLabel = new createjs.Text("Avoid colliding with the cubes\nReach target score by collecting spheres\n\nControls:", "20px Courgette", "#00ff00");
-            //this._instructionInformationLabel.regX = this._instructionInformationLabel.getMeasuredWidth() * 0.5;
-            this._instructionInformationLabel.regY = this._instructionInformationLabel.getMeasuredLineHeight() * 0.5;
-            this._instructionInformationLabel.x = config.Screen.WIDTH * 0.1;
-            this._instructionInformationLabel.y = (config.Screen.HEIGHT * 0.35);
-            this._stage.addChild(this._instructionInformationLabel);
-            //instructions part 2
-            this._instructionInformationLabel2 = new createjs.Text("\tW/Up Arrow -> Accelarate\n\t S/DownArrow -> Break/Reverse\n\tA/Left Arrow -> Move Left\n\tD/Right Arrow -> Move Right\n\tSpace -> Jump", "15px Courgette", "#00ff00");
-            //this._instructionInformationLabel.regX = this._instructionInformationLabel.getMeasuredWidth() * 0.5;
-            this._instructionInformationLabel2.regY = this._instructionInformationLabel2.getMeasuredLineHeight() * 0.5;
-            this._instructionInformationLabel2.x = config.Screen.WIDTH * 0.1;
-            this._instructionInformationLabel2.y = (config.Screen.HEIGHT * 0.45);
-            this._stage.addChild(this._instructionInformationLabel2);
-            // create menu button
-            this._menuButton = new createjs.Bitmap(assets.getResult("MenuButton"));
-            this._menuButton.regX = this._menuButton.getBounds().width * 0.5;
-            this._menuButton.regY = (this._menuButton.getBounds().height * 0.5);
-            this._menuButton.x = config.Screen.WIDTH * 0.25;
-            this._menuButton.y = (config.Screen.HEIGHT * 0.9);
-            this._stage.addChild(this._menuButton);
-            //Add mouseover effect on the menu button
-            this._menuButton.on("mouseover", function (event) {
+            // create start button
+            this._startButton = new createjs.Bitmap(assets.getResult("StartButton"));
+            this._startButton.scaleX = 0.45;
+            this._startButton.scaleY = 0.45;
+            this._startButton.regX = this._startButton.getBounds().width * 0.5;
+            this._startButton.regY = (this._startButton.getBounds().height * 0.5);
+            this._startButton.x = config.Screen.WIDTH * 0.25;
+            this._startButton.y = (config.Screen.HEIGHT * 0.9);
+            this._stage.addChild(this._startButton);
+            //Add mouseover effect on the start button
+            this._startButton.on("mouseover", function (event) {
                 event.target.alpha = 0.7;
             });
-            this._menuButton.on("mouseout", function (event) {
+            this._startButton.on("mouseout", function (event) {
                 event.target.alpha = 1.0;
             });
-            //create mouse click event for menu button
-            this._menuButton.on("click", function (event) {
-                currentScene = config.Scene.MENU;
+            //create mouse click event for start button
+            this._startButton.on("click", function (event) {
+                currentScene = config.Scene.PLAY;
                 changeScene();
             });
             // create exit button
             this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));
+            this._exitButton.scaleX = 0.5;
+            this._exitButton.scaleY = 0.5;
             this._exitButton.regX = this._exitButton.getBounds().width * 0.5;
             this._exitButton.regY = (this._exitButton.getBounds().height * 0.5);
             this._exitButton.x = config.Screen.WIDTH * 0.75;
             this._exitButton.y = (config.Screen.HEIGHT * 0.9);
             this._stage.addChild(this._exitButton);
             //Add mouseover effect on the exit button
-            this._exitButton.on("mouseover", function (event) {
+            /*
+            this._exitButton.on("mouseover", (event: createjs.MouseEvent) => {
                 event.target.alpha = 0.8;
             });
-            this._exitButton.on("mouseout", function (event) {
+
+            this._exitButton.on("mouseout", (event: createjs.MouseEvent) => {
                 event.target.alpha = 1.0;
             });
             //create mouse click event for exit button
-            this._exitButton.on("click", function (event) {
-                currentScene = config.Scene.EXIT;
+            this._exitButton.on("click", (event: createjs.MouseEvent) => {
+                currentScene = config.Scene.OVER;
                 changeScene();
-            });
-            /*
-            // create screen shot
-            this._screenShot = new createjs.Bitmap(assets.getResult("SS"));
-            this._screenShot.regX = this._screenShot.getBounds().width * 0.5;
-            this._screenShot.regY = (this._screenShot.getBounds().height * 0.5);
-            this._screenShot.x = config.Screen.WIDTH * 0.75;
-            this._screenShot.y = (config.Screen.HEIGHT * 0.4);
-            this._stage.addChild(this._screenShot);*/
+            });*/
         };
         /**
          * The update method updates the animation loop and other objects
@@ -166,4 +137,4 @@ var scenes;
     scenes.Instruction = Instruction;
 })(scenes || (scenes = {}));
 
-//# sourceMappingURL=Instruction.js.map
+//# sourceMappingURL=instruction.js.map

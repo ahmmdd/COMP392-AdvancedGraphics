@@ -4,17 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- *  The Scenes module is a namespace to reference all scene objects
- *
- * Source File Name:   game.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 18, 2016
- *  Revision History:   2.0.1
- *
- *  @module scenes
+ * @module scenes
  */
 var scenes;
 (function (scenes) {
@@ -74,26 +64,20 @@ var scenes;
          * @return void
          */
         Menu.prototype.start = function () {
-            this._gameLabel = new createjs.Text("Dodge Meteor Shower", "60px Courgette", "#fff000");
+            this._gameLabel = new createjs.Text("Dodge Meteor Shower", "80px Consolas", "#fff000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
             this._gameLabel.y = (config.Screen.HEIGHT * 0.15);
             this._stage.addChild(this._gameLabel);
-            // create logo
-            this._logo = new createjs.Bitmap(assets.getResult("Logo"));
-            //this._logo.background = "ffffff";
-            this._logo.regX = this._logo.getBounds().width * 0.5;
-            this._logo.regY = (this._logo.getBounds().height * 0.5);
-            this._logo.x = config.Screen.WIDTH * 0.5;
-            this._logo.y = (config.Screen.HEIGHT * 0.3) + 30;
-            this._stage.addChild(this._logo);
             // create start button
             this._startButton = new createjs.Bitmap(assets.getResult("StartButton"));
+            this._startButton.scaleX = 0.45;
+            this._startButton.scaleY = 0.45;
             this._startButton.regX = this._startButton.getBounds().width * 0.5;
             this._startButton.regY = (this._startButton.getBounds().height * 0.5);
             this._startButton.x = config.Screen.WIDTH * 0.5;
-            this._startButton.y = (config.Screen.HEIGHT * 0.3) + 140;
+            this._startButton.y = (config.Screen.HEIGHT * 0.3);
             this._stage.addChild(this._startButton);
             //Add mouseover effect on the start button
             this._startButton.on("mouseover", function (event) {
@@ -104,15 +88,17 @@ var scenes;
             });
             //create mouse click event for start button
             this._startButton.on("click", function (event) {
-                currentScene = config.Scene.PLAY1;
+                currentScene = config.Scene.PLAY;
                 changeScene();
             });
             // create instruction button
             this._instructionButton = new createjs.Bitmap(assets.getResult("InstructionButton"));
+            this._instructionButton.scaleX = 0.5;
+            this._instructionButton.scaleY = 0.5;
             this._instructionButton.regX = this._instructionButton.getBounds().width * 0.5;
             this._instructionButton.regY = (this._instructionButton.getBounds().height * 0.5);
             this._instructionButton.x = config.Screen.WIDTH * 0.5;
-            this._instructionButton.y = (config.Screen.HEIGHT * 0.3) + 210;
+            this._instructionButton.y = (config.Screen.HEIGHT * 0.3) + 100;
             this._stage.addChild(this._instructionButton);
             //Add mouseover effect on the instruction button
             this._instructionButton.on("mouseover", function (event) {
@@ -128,10 +114,12 @@ var scenes;
             });
             // create exit button
             this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));
+            this._exitButton.scaleX = 0.5;
+            this._exitButton.scaleY = 0.5;
             this._exitButton.regX = this._exitButton.getBounds().width * 0.5;
             this._exitButton.regY = (this._exitButton.getBounds().height * 0.5);
             this._exitButton.x = config.Screen.WIDTH * 0.5;
-            this._exitButton.y = (config.Screen.HEIGHT * 0.3) + 280;
+            this._exitButton.y = (config.Screen.HEIGHT * 0.3) + 200;
             this._stage.addChild(this._exitButton);
             //Add mouseover effect on the exit button
             this._exitButton.on("mouseover", function (event) {
@@ -142,7 +130,7 @@ var scenes;
             });
             //create mouse click event for exit button
             this._exitButton.on("click", function (event) {
-                currentScene = config.Scene.EXIT;
+                currentScene = config.Scene.OVER;
                 changeScene();
             });
         };
@@ -169,4 +157,4 @@ var scenes;
     scenes.Menu = Menu;
 })(scenes || (scenes = {}));
 
-//# sourceMappingURL=Menu.js.map
+//# sourceMappingURL=menu.js.map

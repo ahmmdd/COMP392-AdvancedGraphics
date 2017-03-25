@@ -1,16 +1,3 @@
-/**
- *  The Scenes module is a namespace to reference all scene objects
- *  
- *  Source File Name:   scene.ts
- *  Author Name(s):     Mohammed Juned Ahmed
- *                      Joshua Collaco
- *                      Ryan Sterling 
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: April 18, 2016
- *  Revision History:   2.0.1
- * 
- *  @module scenes
- */
 module scenes {
     /**
      * The Scene class is a generic / custom Scene container
