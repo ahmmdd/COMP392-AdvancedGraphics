@@ -1,7 +1,5 @@
 
 /// <reference path="threejs/three.d.ts" />
-/// <reference path="dat-gui/dat-gui.d.ts" />
-/// <reference path="../Scripts/objects/control.ts" />
 /// <reference path="stats/stats.d.ts" />
 /// <reference path="gulp/gulp.d.ts" />
 /// <reference path="node/node.d.ts" />
@@ -21,4 +19,4 @@
 /// <reference path="tweenjs/tweenjs.d.ts" />
 /// <reference path="preloadjs/preloadjs.d.ts" />
 /// <reference path="soundjs/soundjs.d.ts" />
-
+/// <reference path="dat-gui/dat-gui.d.ts" />

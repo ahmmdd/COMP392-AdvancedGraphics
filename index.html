@@ -1,22 +1,26 @@
 <!--
-/*
- *  This is a index page that call all the scripts for the game.
+/**
+ *  This main html document that calls all
+ *  the scripts and makes content visible on web.
  *  
- *  Source File Name:   index.html
- *  Author Name:        Mohammed Juned Ahmed (300833356)
- *                      Joshua Collaco (300507555)
+ *  Source File Name:   game.ts
+ *  Author Name(s):     Mohammed Juned Ahmed
+ *                      Joshua Collaco
+ *                      Ryan Sterling 
  *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: March 28, 2016
- *  Revision History:   5.0.1
+ *  Date Last Modified: April 17, 2016
+ *  Revision History:   1.5.2
+ * 
+ *  @module scenes
  */
-    
--->
+ -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>COMP392 Assignment 3</title>
+    <title>Final Project</title>
+    <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
     <!-- CSS Section -->
     <link rel="stylesheet" href="Content/app.css">
 </head>
@@ -25,13 +29,26 @@
     <div id="blocker">
         <div id="instructions">
             <span id="play">Click to Play</span>
-            <br> (W, A, S, D = Move);
+            <br> (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around);
         </div>
     </div>
-    
     <div>
         <canvas id="canvas"></canvas>
     </div>
+
+
+    <!-- Background script Section -->
+    <!--
+    <script type="application/x-glsl" id="sky-vertex">
+        varying vec2 vUV; void main() { vUV = uv; vec4 pos = vec4(position, 1.0); gl_Position = projectionMatrix * modelViewMatrix
+        * pos; }
+    </script>
+
+    <script type="application/x-glsl" id="sky-fragment">
+        uniform sampler2D texture; varying vec2 vUV; void main() { vec4 sample = texture2D(texture, vUV); gl_FragColor = vec4(sample.xyz,
+        sample.w); }
+    </script>
+    -->
     <!-- JavaScript Section -->
     <script src="Scripts/lib/EaselJS/lib/easeljs-0.8.2.min.js"></script>
     <script src="Scripts/lib/TweenJS/lib/tweenjs-0.6.2.min.js"></script>
@@ -39,16 +56,23 @@
     <script src="Scripts/lib/PreloadJS/lib/preloadjs-0.6.2.min.js"></script>
     <script src="Scripts/lib/three.js/build/three.min.js"></script>
     <script src="Scripts/lib/Physijs/physi.js"></script>
-    <script src="Scripts/lib/dat-gui/build/dat.gui.min.js"></script>
     <script src="Scripts/lib/stats.js/build/stats.min.js"></script>
 
     <!-- Game Scripts -->
     <script src="Scripts/objects/keyboardcontrols.js"></script>
-    <script src="scripts/objects/mousecontrols.js"></script>
+    <script src="Scripts/objects/mousecontrols.js"></script>
     <script src="Scripts/config/screen.js"></script>
-    <script src="Scripts/objects/point.js"></script>
-    <script src="Scripts/objects/control.js"></script>
-    <script src="Scripts/objects/gameobject.js"></script>
+
+    <!-- Scene Scritps -->
+    <script src="Scripts/scenes/scene.js"></script>
+    <script src="Scripts/scenes/Play1.js"></script>
+    <script src="Scripts/scenes/Play2.js"></script>
+    <script src="Scripts/scenes/Play3.js"></script>
+    <script src="Scripts/scenes/Menu.js"></script>
+    <script src="Scripts/scenes/Instruction.js"></script>
+    <script src="Scripts/scenes/Over.js"></script>
+    <script src="Scripts/scenes/Exit.js"></script>
+
     <script src="Scripts/core/game.js"></script>
 </body>
 

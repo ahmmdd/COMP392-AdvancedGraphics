@@ -1,13 +1,13 @@
-#COMP392-Assignment3
+#COMP392-Project - Dodge the meteor Shower
 
-COMP392-Assignment 3 for COMP392 - Advanced Graphics @ Centennial College
+### Group Member(s): 
+####### Mohammed Juned Ahmed
+####### Ryan Sterling
+####### Joshua Collaco
 
-GitHub
-https://github.com/300833356COMP392/COMP392-A3
+### Azure Link:
+http://comp392-finalproject-mrj.azurewebsites.net/
 
-Azure
-http://comp392-a3.azurewebsites.net
-
-Author(s):
-Mohammed Juned Ahmed (300833356)
-Joshua Collaco (300507555)
+### Github Link:
+https://github.com/300833356COMP392/FinalProject/commits/FinalSubmission
+https://github.com/300833356COMP392/FinalProject-V2

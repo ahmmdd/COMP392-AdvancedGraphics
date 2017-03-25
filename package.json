@@ -1,7 +1,7 @@
 {
-  "name": "comp392-assignment3",
-  "version": "5.0.1",
-  "description": "COMP392-Assignment 3 for Centennial College",
+  "name": "comp392-finalproject",
+  "version": "1.0.0",
+  "description": "COMP392-Final Project",
   "main": "game.js",
   "dependencies": {
     "typescript": "^1.8.7"
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/300833356COMP392/COMP392-A3.git"
+    "url": "git+https://github.com/300833356COMP392/FinalProject.git"
   },
-  "author": "Mohammed Ahmed, Joshua Collaco",
+  "author": "Tom Tsiliopoulos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/300833356COMP392/COMP392-A3/issues"
+    "url": "https://github.com/300833356COMP392/FinalProject/issues"
   },
-  "homepage": "https://github.com/300833356COMP392/COMP392-A3#readme"
+  "homepage": "https://github.com/300833356COMP392/FinalProject#readme"
 }

@@ -1,14 +1,3 @@
-/*
- *  This is a keyboard controls are set.
- *  
- *  Source File Name:   keyboardcontrols.ts
- *  Author Name:        Mohammed Juned Ahmed (300833356)
- *                      Joshua Collaco (300507555)
- *  Last Modified by:   Mohammed Juned Ahmed
- *  Date Last Modified: March 20, 2016
- *  Revision History:   1.0.1
- */
-
 module objects {
     // KeyboardControls Class +++++++++++++++
     export class KeyboardControls {
@@ -18,10 +7,17 @@ module objects {
         public moveLeft: boolean;
         public moveRight: boolean;
         public jump: boolean;
+        public paused: boolean;
         public enabled: boolean;
+        public switchLevelOne: boolean;
+        public switchLevelTwo: boolean;
+        public switchLevelThree: boolean;
+        public switchMenu: boolean;
+        public switchOver: boolean;
+        public switchInstructions: boolean;
         // CONSTRUCTOR ++++++++++++++++++++++++++    
         constructor() {
-            this.enabled = false;
+            //this.enabled = false;
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
             document.addEventListener('keyup', this.onKeyUp.bind(this), false);
         }
@@ -38,10 +34,40 @@ module objects {
                 case 65: /* A Key */
                     this.moveLeft = true;
                     break;
+                case 40: /*down arrow*/
+                case 83: /* S Key */
+                    this.moveBackward = true;
+                    break;
                 case 39: /*right arrow*/
                 case 68: /* D Key */
                     this.moveRight = true;
                     break;
+                case 32: /* Spacebar */
+                    this.jump = true;
+                    break;
+                case 81: /*pause*/
+                    this.paused = (this.paused) ? false : true;
+                    break;
+                case 49: /*1*/
+                case 97: /*numpad 1*/
+                    this.switchLevelOne = true;
+                    break;
+                case 50: /*2*/
+                case 98: /*numpad 2*/
+                    this.switchLevelTwo = true;
+                    break;
+                case 51: /*3*/
+                case 99: /*numpad 3*/
+                    this.switchLevelThree = true;
+                    break;
+                case 77: /*M=Menu*/
+                    this.switchMenu = true;
+                    break;
+                case 79: /*O=Over*/
+                    this.switchOver = true;
+                    break;
+                case 72: /*H=Instructions*/
+                    this.switchInstructions = true;
             }
         }
 
@@ -55,9 +81,16 @@ module objects {
                 case 65: /* A Key */
                     this.moveLeft = false;
                     break;
+                case 40: /*down arrow*/
+                case 83: /* S Key */
+                    this.moveBackward = false;
+                    break;
                 case 39: /*right arrow*/
                 case 68: /* D Key */
                     this.moveRight = false;
+                    break;
+                case 32: /* Spacebar */
+                    this.jump = false;
                     break;
             }
         }
