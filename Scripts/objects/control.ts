@@ -1,26 +1,46 @@
 /*
-This is a GUI controller class for the game.ts script.
-GitHub Repository: https://github.com/300833356COMP392/Assignment01
-Azure Deployment Link: http://300833356--comp392-assignment1.azurewebsites.net
-Source File: Game.ts 
-@author Mohammed Juned Ahmed
-Last Modified Date: Feburaru 05, 2016 
-Last Modified by: Mohammed Juned Ahmed
-*/
+ *  This is the control.ts file that initilizes the constructors for the 
+ *  control objects. 
+ *  
+ *  Source File Name:   control.ts
+ *  Author Name:        Mohammed Juned Ahmed (300833356)
+ *  Last Modified by:   Mohammed Juned Ahmed
+ *  Date Last Modified: February 08, 2016
+ *  Revision History:   0.0.1
+ */
 /// <reference path="../../typings/tsd.d.ts"/>
 
 module objects {
     // CONTROL CLASS ++++++++++++++++++++++++++++++++++++++++++
     export class Control { 
         //PUBLIC INSTANCE VARIABLES +++++++++++++++++++++++++++
-        public rotationSpeed_x:number;
-        public rotationSpeed_y:number;
-        public rotationSpeed_z:number;
+        public zoom:string;
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++
-        constructor(speedX:number, speedY:number, speedZ:number) {
-           this.rotationSpeed_x = speedX;
-           this.rotationSpeed_y = speedY;
-           this.rotationSpeed_z = speedZ;
+        constructor(rotationSpeed:number) {
+           this.zoom = "Zoom Out";
+        }
+        
+        //PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++
+       //Control Switch event action for Zoom In and ZoomOut the camera
+       public zoomInEarth(): void {
+           if (this.zoom == "Zoom In") {
+               camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+               camera.position.x = -50;
+               camera.position.y = 25;
+               camera.position.z = 20;
+               camera.lookAt(new Vector3(5, 0, 0));
+               //console.log("Finished setting up Camera...");
+               this.zoom = "Zoom Out";
+           } else {
+                camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.x = -10;
+                camera.position.y = 0;
+                camera.position.z = 0;
+                camera.lookAt(new Vector3(5, 0, 0));
+                //console.log("Finished setting up zoom Earth Camera...");
+                this.zoom = "Zoom In";
+                planet3Mesh.add(camera);
+            }
         }
     }
 }

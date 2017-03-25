@@ -1,12 +1,21 @@
+/*
+ *  This is the game.ts file that contains all the impelementations for the
+ *  solar system of 5 planets revolving around the sun.
+ *
+ *  Source File Name:   game.ts
+ *  Author Name:        Mohammed Juned Ahmed (300833356)
+ *  Last Modified by:   Mohammed Juned Ahmed
+ *  Date Last Modified: February 08, 2016
+ *  Revision History:   0.0.1
+ */
 /// <reference path="_reference.ts"/>
-// THREEJS Aliases
+// MAIN GAME FILE
 var Scene = THREE.Scene;
 var Renderer = THREE.WebGLRenderer;
 var PerspectiveCamera = THREE.PerspectiveCamera;
-var BoxGeometry = THREE.BoxGeometry;
-var CubeGeometry = THREE.CubeGeometry;
 var PlaneGeometry = THREE.PlaneGeometry;
 var SphereGeometry = THREE.SphereGeometry;
+var RingGeometry = THREE.RingGeometry;
 var Geometry = THREE.Geometry;
 var AxisHelper = THREE.AxisHelper;
 var LambertMaterial = THREE.MeshLambertMaterial;
@@ -22,131 +31,129 @@ var GUI = dat.GUI;
 var Color = THREE.Color;
 var Vector3 = THREE.Vector3;
 var Face3 = THREE.Face3;
-//Custom Game Objects
 var gameObject = objects.gameObject;
 var scene;
 var renderer;
 var camera;
-var axes;
-var head;
-var body;
-var rightArm;
-var leftArm;
-var rightLeg;
-var leftLeg;
-var plane;
-var sphere;
+var axis;
 var ambientLight;
 var spotLight;
+var pointLight;
 var control;
 var gui;
 var stats;
 var step = 0;
-var headGeometry;
-var headMaterial;
-var bodyGeometry;
-var bodyMaterial;
-var legGeometry;
-var legMaterial;
-var armGeometry;
-var armMaterial;
+var planet1Object;
+var planet2Object;
+var planet3Object;
+var planet4Object;
+var planet5Object;
+//Sun
+var sun;
+//Planets and moons
+var planet1Mesh;
+var planet2Mesh;
+var planet3Mesh;
+var planet4Mesh;
+var planet5Mesh;
+var ringMesh;
+var moonMesh;
 function init() {
-    // Instantiate a new Scene object
+    //add new scene
     scene = new Scene();
-    // setup the default renderer
     setupRenderer();
-    // setup the camera
     setupCamera();
-    // add an axis helper to the scene
-    axes = new AxisHelper(10);
-    scene.add(axes);
-    console.log("Added Axis Helper to scene...");
-    //Add a Plane to the Scene
-    plane = new gameObject(new PlaneGeometry(20, 20, 1, 1), new LambertMaterial({ color: 0x00ffb8 }), 0, 0, 0);
-    plane.rotation.x = -0.5 * Math.PI;
-    scene.add(plane);
-    console.log("Added Plane Primitive to scene...");
-    // Body Material and Geomentry
-    bodyMaterial = new LambertMaterial({ color: 0xa6a4c0 });
-    bodyGeometry = new CubeGeometry(1.5, 1.5, 1);
-    // Legs Material and Geomentry
-    legMaterial = new LambertMaterial({ color: 0xff0000 });
-    legGeometry = new CubeGeometry(0.5, 2, 0.5);
-    // Head Material and Geomentry
-    headMaterial = new LambertMaterial({ color: 0xe59a5b });
-    headGeometry = new CubeGeometry(0.921, 0.921, 0.614);
-    // Arms Material and Geomentry
-    armMaterial = new LambertMaterial({ color: 0xc9fbed });
-    armGeometry = new CubeGeometry(2, 0.5, 0.5);
-    //Add a body of Cube man
-    body = new Mesh(bodyGeometry, bodyMaterial);
-    body.castShadow = true;
-    body.receiveShadow = true;
-    body.position.y = 3;
-    scene.add(body);
-    //Add a head of Cube man
-    head = new Mesh(headGeometry, headMaterial);
-    head.castShadow = true;
-    head.receiveShadow = true;
-    head.position.y = 1;
-    body.add(head);
-    //Add a rightArm of Cube man
-    rightArm = new Mesh(armGeometry, armMaterial);
-    rightArm.castShadow = true;
-    rightArm.receiveShadow = true;
-    rightArm.position.x = 1.1;
-    rightArm.position.y = 0.4;
-    body.add(rightArm);
-    //Add a leftArm of Cube man
-    leftArm = new Mesh(armGeometry, armMaterial);
-    leftArm.castShadow = true;
-    leftArm.receiveShadow = true;
-    leftArm.position.x = -1.1;
-    leftArm.position.y = 0.4;
-    body.add(leftArm);
-    // Add right leg to scene
-    rightLeg = new Mesh(legGeometry, legMaterial);
-    rightLeg.castShadow = true;
-    rightLeg.receiveShadow = true;
-    rightLeg.position.x = 0.4;
-    rightLeg.position.y = -1.5;
-    body.add(rightLeg);
-    //Add a leftLeg of Cube man
-    leftLeg = new Mesh(legGeometry, legMaterial);
-    leftLeg.castShadow = true;
-    leftLeg.receiveShadow = true;
-    leftLeg.position.x = -0.4;
-    leftLeg.position.y = -1.5;
-    body.add(leftLeg);
-    // Add an AmbientLight to the scene
-    ambientLight = new AmbientLight(0x212121);
+    //add new axis helper
+    axis = new AxisHelper(20);
+    scene.add(axis);
+    //console.log("Axis Helper added to scene...");
+    //add background color
+    document.body.style.backgroundColor = "Black";
+    //add sun
+    sun = new gameObject(new SphereGeometry(3, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/sun.jpg") }), 0, 0, 0);
+    scene.add(sun);
+    //add game objects
+    planet1Object = new Object3D();
+    planet2Object = new Object3D();
+    planet3Object = new Object3D();
+    planet4Object = new Object3D();
+    planet5Object = new Object3D();
+    planet1Object.position.set(0, 0, 0);
+    planet2Object.position.set(0, 0, 0);
+    planet3Object.position.set(0, 0, 0);
+    planet4Object.position.set(0, 0, 0);
+    planet5Object.position.set(0, 0, 0);
+    sun.add(planet1Object);
+    sun.add(planet2Object);
+    sun.add(planet3Object);
+    sun.add(planet4Object);
+    sun.add(planet5Object);
+    //add planet 1
+    planet1Mesh = new gameObject(new SphereGeometry(1, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/planet1.jpg") }), -5, 0, 0);
+    planet1Object.add(planet1Mesh);
+    //console.log("Planet1 added to scene...");
+    //add planet 2
+    planet2Mesh = new gameObject(new SphereGeometry(1, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/planet2.jpg") }), -10, 0, 0);
+    planet2Object.add(planet2Mesh);
+    //console.log("Planet2 added to scene...");
+    //add Planet3
+    planet3Mesh = new gameObject(new SphereGeometry(1.5, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/planet3.jpg") }), -13, 0, 0);
+    planet3Object.add(planet3Mesh);
+    //console.log("Planet3 added to scene...");
+    //add Planet3 moon
+    moonMesh = new gameObject(new SphereGeometry(0.5, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/moon.jpg") }), -1.5, 0, 1.5);
+    planet3Mesh.add(moonMesh);
+    //console.log("Planet 3 moon added to scene...");
+    //add Planet 4
+    planet4Mesh = new gameObject(new SphereGeometry(1.1, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/planet4.jpg") }), -16, 0, 0);
+    planet4Object.add(planet4Mesh);
+    //console.log("Mars added to scene...");
+    //add Planet 5
+    planet5Mesh = new gameObject(new SphereGeometry(1.2, 32, 32), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/planet5.jpg") }), -25, 0, 0);
+    planet5Object.add(planet5Mesh);
+    //console.log("Saturn added to scene...");
+    //add Planet 5 ring
+    ringMesh = new gameObject(new RingGeometry(1.5, 2, 32, 32, 0, Math.PI * 2), new LambertMaterial({ map: THREE.ImageUtils.loadTexture("../../Content/ring.jpg"), wireframe: true }), -25, 0, 0);
+    ringMesh.rotation.y = 10;
+    ringMesh.rotation.x = 20;
+    planet5Object.add(ringMesh);
+    //console.log("Plante5 ring mesh added to scene...");
+    //add ambientLight to the scene
+    ambientLight = new AmbientLight(0xa5a5a5);
     scene.add(ambientLight);
-    // Add a SpotLight to the scene
-    spotLight = new SpotLight(0xffffff);
-    spotLight.position.set(-40, 60, -10);
-    spotLight.castShadow = true;
-    scene.add(spotLight);
-    // add controls
+    //console.log("Ambient Light added to Scene");
+    //add a PointLight to the scene
+    pointLight = new PointLight(0xffffff);
+    pointLight.castShadow = true;
+    pointLight.intensity = 1;
+    pointLight.shadowMapHeight = 2048;
+    pointLight.shadowMapWidth = 2048;
+    scene.add(pointLight);
+    //console.log("PointLight added to the scene");
+    //add controls
     gui = new GUI();
-    control = new Control(0, 0.05, 0);
+    control = new Control(0.002);
     addControl(control);
     // Add framerate stats
     addStatsObject();
-    console.log("Added Stats to scene...");
+    //console.log("Stats added to scene...");
     document.body.appendChild(renderer.domElement);
-    // render the scene	
-    gameLoop();
+    gameLoop(); // render the scene	   
     window.addEventListener('resize', onResize, false);
 }
-function onResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-function addControl(controlObject) {
-    gui.add(controlObject, 'rotationSpeed_x', -0.5, 0.5);
-    gui.add(controlObject, 'rotationSpeed_y', -0.5, 0.5);
-    gui.add(controlObject, 'rotationSpeed_z', -0.5, 0.5);
+function gameLoop() {
+    stats.update();
+    //orbit of the planets
+    planet1Object.rotation.y += 0.03;
+    planet2Object.rotation.y += 0.02;
+    planet3Object.rotation.y += 0.01;
+    planet4Object.rotation.y += 0.032;
+    planet5Object.rotation.y += 0.025;
+    //Moon Orbit 
+    planet3Mesh.rotation.y += 0.01;
+    moonMesh.rotation.y += 0.01;
+    requestAnimationFrame(gameLoop);
+    renderer.render(scene, camera);
 }
 function addStatsObject() {
     stats = new Stats();
@@ -156,30 +163,31 @@ function addStatsObject() {
     stats.domElement.style.top = '0px';
     document.body.appendChild(stats.domElement);
 }
-// Setup main game loop
-function gameLoop() {
-    stats.update();
-    body.rotation.x += control.rotationSpeed_x;
-    body.rotation.y += control.rotationSpeed_y;
-    body.rotation.z += control.rotationSpeed_z;
-    // render using requestAnimationFrame
-    requestAnimationFrame(gameLoop);
-    // render the scene
-    renderer.render(scene, camera);
+function onResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
-// Setup default renderer
+function addControl(controlObject) {
+    gui.add(controlObject, 'zoomInEarth');
+    gui.add(controlObject, 'zoom').listen();
+}
+//setup renderer for the scene
 function setupRenderer() {
-    renderer = new Renderer();
-    renderer.setClearColor(0xEEEEEE, 1.0);
+    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    renderer.setClearColor(0x000000, 0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
+    //console.log("Finished setting up Renderer...");
 }
-// Setup main camera for the scene
+//setup main camera for the scene
 function setupCamera() {
     camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.x = 0.6;
-    camera.position.y = 16;
-    camera.position.z = -20.5;
-    camera.lookAt(new Vector3(0, 0, 0));
+    camera.position.x = -50;
+    camera.position.y = 25;
+    camera.position.z = 20;
+    camera.lookAt(new Vector3(5, 0, 0));
+    //console.log("Finished setting up Camera...");
 }
+
 //# sourceMappingURL=game.js.map
