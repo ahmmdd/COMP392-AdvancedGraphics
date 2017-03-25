@@ -1,13 +1,13 @@
 {
-  "name": "comp392COMP392-threejsbiolerplate",
+  "name": "comp392-assignment01",
   "authors": [
-    "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>"
+    "Mohammed Ahmed <ahmed3415@gmail.com>"
   ],
-  "description": "COMP392-ThreeJSBiolerPlate for Advanced Graphics",
+  "description": "COMP392-Assignment01 for Advanced Graphics",
   "main": "",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "http://github.com/CentennialCollege/COMP392-ThreeJSBiolerPlate",
+  "homepage": "https://github.com/300833356COMP392/Assignment01",
   "ignore": [
     "**/.*",
     "node_modules",

@@ -1,6 +1,16 @@
+/*
+This is the main typescript file that imports all the functions available in ThreeJS, 
+need for the purpose of 3-Dimensional modelling in TypeScript. This script file is used
+to add all the details for the cube man for the purpose of the assignment for Advanced 
+Graphics.
+GitHub Repository: https://github.com/300833356COMP392/Assignment01
+Azure Deployment Link: http://300833356--comp392-assignment1.azurewebsites.net
+Source File: Game.ts 
+@author Mohammed Juned Ahmed
+Last Modified Date: Feburaru 05, 2016 
+Last Modified by: Mohammed Juned Ahmed
+*/
 /// <reference path="_reference.ts"/>
-
-// MAIN GAME FILE
 
 // THREEJS Aliases
 import Scene = THREE.Scene;
@@ -25,16 +35,18 @@ import GUI = dat.GUI;
 import Color = THREE.Color;
 import Vector3 = THREE.Vector3;
 import Face3 = THREE.Face3;
-import Point = objects.Point;
-
 //Custom Game Objects
 import gameObject = objects.gameObject;
-
 var scene: Scene;
 var renderer: Renderer;
 var camera: PerspectiveCamera;
 var axes: AxisHelper;
-var cube: Mesh;
+var head: Mesh;
+var body: Mesh;
+var rightArm: Mesh;
+var leftArm: Mesh;
+var rightLeg: Mesh;
+var leftLeg: Mesh;
 var plane: Mesh;
 var sphere: Mesh;
 var ambientLight: AmbientLight;
@@ -43,57 +55,111 @@ var control: Control;
 var gui: GUI;
 var stats: Stats;
 var step: number = 0;
-var vertices: Vector3[] = new Array<Vector3>();
-var faces: Face3[] = new Array<Face3>();
-var customGeometry: Geometry;
-var customMaterials: Material[] = new Array<Material>();
-var customMesh: Object3D;
+var headGeometry:CubeGeometry;
+var headMaterial:LambertMaterial;
+var bodyGeometry:CubeGeometry;
+var bodyMaterial:LambertMaterial;
+var legGeometry:CubeGeometry;
+var legMaterial:LambertMaterial;
+var armGeometry:CubeGeometry;
+var armMaterial:LambertMaterial;
 
 function init() {
     // Instantiate a new Scene object
     scene = new Scene();
-
-    setupRenderer(); // setup the default renderer
-	
-    setupCamera(); // setup the camera
-	
+    // setup the default renderer
+	setupRenderer(); 
+    // setup the camera
+	setupCamera();
     // add an axis helper to the scene
-    axes = new AxisHelper(20);
+    axes = new AxisHelper(10);
     scene.add(axes);
     console.log("Added Axis Helper to scene...");
     
     //Add a Plane to the Scene
     plane = new gameObject(
-        new PlaneGeometry(60, 40, 1, 1),
-        new LambertMaterial({ color: 0xffffff }),
-        0, 0, 0);
-
+        new PlaneGeometry(20, 20, 1, 1), 
+        new LambertMaterial({ color: 0x00ffb8}),
+         0, 0, 0);
     plane.rotation.x = -0.5 * Math.PI;
-
     scene.add(plane);
     console.log("Added Plane Primitive to scene...");
-     
+
+    // Body Material and Geomentry
+    bodyMaterial = new LambertMaterial({color:0xa6a4c0});
+    bodyGeometry = new CubeGeometry(1.5, 1.5, 1);
+    
+    // Legs Material and Geomentry
+    legMaterial = new LambertMaterial({color:0xff0000});
+    legGeometry = new CubeGeometry(0.5, 2, 0.5);
+    
+    // Head Material and Geomentry
+    headMaterial = new LambertMaterial({color:0xe59a5b});
+    headGeometry = new CubeGeometry(0.921, 0.921, 0.614);
+    
+    // Arms Material and Geomentry
+    armMaterial = new LambertMaterial({color:0xc9fbed});
+    armGeometry = new CubeGeometry(2, 0.5, 0.5);
+    
+    //Add a body of Cube man
+    body = new Mesh(bodyGeometry, bodyMaterial);
+    body.castShadow = true;
+    body.receiveShadow = true;
+    body.position.y = 3;
+    scene.add(body);
+    
+    //Add a head of Cube man
+    head = new Mesh(headGeometry, headMaterial);
+    head.castShadow = true;
+    head.receiveShadow = true;
+    head.position.y = 1;
+    body.add(head);
+    
+    //Add a rightArm of Cube man
+    rightArm = new Mesh(armGeometry, armMaterial);
+    rightArm.castShadow = true;
+    rightArm.receiveShadow = true;
+    rightArm.position.x = 1.1;
+    rightArm.position.y = 0.4;
+    body.add(rightArm);
+    
+    //Add a leftArm of Cube man
+    leftArm = new Mesh(armGeometry, armMaterial);
+    leftArm.castShadow = true;
+    leftArm.receiveShadow = true;
+    leftArm.position.x = -1.1;
+    leftArm.position.y = 0.4;
+    body.add(leftArm);
+    
+    // Add right leg to scene
+    rightLeg = new Mesh(legGeometry, legMaterial);
+    rightLeg.castShadow = true;
+    rightLeg.receiveShadow = true;
+    rightLeg.position.x = 0.4;
+    rightLeg.position.y = -1.5;
+    body.add(rightLeg);
+    
+    //Add a leftLeg of Cube man
+    leftLeg = new Mesh(legGeometry, legMaterial);
+    leftLeg.castShadow = true;
+    leftLeg.receiveShadow = true;
+    leftLeg.position.x = -0.4;
+    leftLeg.position.y = -1.5;
+    body.add(leftLeg);
     
     // Add an AmbientLight to the scene
-    ambientLight = new AmbientLight(0x090909);
+    ambientLight = new AmbientLight(0x212121);
     scene.add(ambientLight);
-    console.log("Added an Ambient Light to Scene");
 	
     // Add a SpotLight to the scene
     spotLight = new SpotLight(0xffffff);
-    spotLight.position.set(-40, 60, 10);
+    spotLight.position.set(-40, 60, -10);
     spotLight.castShadow = true;
     scene.add(spotLight);
-    console.log("Added a SpotLight Light to Scene");
-    
-    // Call the Custom Mesh function
-    initializeCustomMesh();
-    
     
     // add controls
     gui = new GUI();
-    control = new Control(customMesh);
-    addControlPoints();
+    control = new Control(0, 0.05, 0);
     addControl(control);
 
     // Add framerate stats
@@ -101,72 +167,9 @@ function init() {
     console.log("Added Stats to scene...");
 
     document.body.appendChild(renderer.domElement);
-    gameLoop(); // render the scene	
-    
+    // render the scene	
+    gameLoop(); 
     window.addEventListener('resize', onResize, false);
-}
-
-function initializeCustomMesh(): void {
-    vertices = [
-        new THREE.Vector3(1, 3, 1),
-        new THREE.Vector3(1, 3, -1),
-        new THREE.Vector3(1, -1, 1),
-        new THREE.Vector3(1, -1, -1),
-        new THREE.Vector3(-1, 3, -1),
-        new THREE.Vector3(-1, 3, 1),
-        new THREE.Vector3(-1, -1, -1),
-        new THREE.Vector3(-1, -1, 1)
-    ];
-
-    faces = [
-        new THREE.Face3(0, 2, 1),
-        new THREE.Face3(2, 3, 1),
-        new THREE.Face3(4, 6, 5),
-        new THREE.Face3(6, 7, 5),
-        new THREE.Face3(4, 5, 1),
-        new THREE.Face3(5, 0, 1),
-        new THREE.Face3(7, 6, 2),
-        new THREE.Face3(6, 3, 2),
-        new THREE.Face3(5, 7, 0),
-        new THREE.Face3(7, 2, 0),
-        new THREE.Face3(1, 3, 4),
-        new THREE.Face3(3, 6, 4),
-    ];
-
-    createCustomMesh();
-
-    console.log("Added Custom Mesh to Scene");
-}
-
-function addControlPoints(): void {
-    control.points.push(new Point(3, 5, 3));
-    control.points.push(new Point(3, 5, 0));
-    control.points.push(new Point(3, 0, 3));
-    control.points.push(new Point(3, 0, 0));
-    control.points.push(new Point(0, 5, 0));
-    control.points.push(new Point(0, 5, 3));
-    control.points.push(new Point(0, 0, 0));
-    control.points.push(new Point(0, 0, 3));
-}
-
-function createCustomMesh() {
-    customGeometry = new Geometry();
-    customGeometry.vertices = vertices;
-    customGeometry.faces = faces;
-    customGeometry.mergeVertices();
-    customGeometry.computeFaceNormals();
-
-    customMaterials = [
-        new LambertMaterial({ opacity: 0.6, color: 0x44ff44, transparent: true }),
-        new MeshBasicMaterial({ color: 0x000000, wireframe: true })
-    ];
-
-    customMesh = THREE.SceneUtils.createMultiMaterialObject(customGeometry, customMaterials);
-    customMesh.children.forEach((child) => {
-        child.castShadow = true;
-    });
-    customMesh.name = "customMesh";
-    scene.add(customMesh);
 }
 
 function onResize(): void {
@@ -176,14 +179,9 @@ function onResize(): void {
 }
 
 function addControl(controlObject: Control): void {
-    gui.add(controlObject, 'clone');
-    for (var index = 0; index < 8; index++) {
-        var folder: GUI;
-        folder = gui.addFolder('Vertices ' + (index + 1));
-        folder.add(controlObject.points[index], 'x', -10, 10);
-        folder.add(controlObject.points[index], 'y', -10, 10);
-        folder.add(controlObject.points[index], 'z', -10, 10);
-    }
+    gui.add(controlObject, 'rotationSpeed_x', -0.5, 0.5);
+    gui.add(controlObject, 'rotationSpeed_y', -0.5, 0.5);
+    gui.add(controlObject, 'rotationSpeed_z', -0.5, 0.5);
 }
 
 function addStatsObject() {
@@ -198,23 +196,12 @@ function addStatsObject() {
 // Setup main game loop
 function gameLoop(): void {
     stats.update();
-
-    vertices = new Array<Vector3>();
-    for (var index = 0; index < 8; index++) {
-        vertices.push(new Vector3(
-            control.points[index].x,
-            control.points[index].y,
-            control.points[index].z));
-    }
-
-    // remove our customMesh from the scene and add it every frame 
-    scene.remove(scene.getObjectByName("customMesh"));
-    createCustomMesh();
-
+    body.rotation.x += control.rotationSpeed_x;
+    body.rotation.y += control.rotationSpeed_y;    
+    body.rotation.z += control.rotationSpeed_z;
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
-	
-    // render the scene
+	// render the scene
     renderer.render(scene, camera);
 }
 
@@ -224,15 +211,13 @@ function setupRenderer(): void {
     renderer.setClearColor(0xEEEEEE, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
-    console.log("Finished setting up Renderer...");
 }
 
 // Setup main camera for the scene
 function setupCamera(): void {
     camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.x = -20;
-    camera.position.y = 25;
-    camera.position.z = 20;
-    camera.lookAt(new Vector3(5, 0, 0));
-    console.log("Finished setting up Camera...");
+    camera.position.x = 0.6;
+    camera.position.y = 16;
+    camera.position.z = -20.5;
+    camera.lookAt(new Vector3(0, 0, 0));
 }
